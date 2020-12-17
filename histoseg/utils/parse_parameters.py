@@ -112,18 +112,19 @@ def parseConfig(config_file_path):
             )
     else:
         sys.exit(
-            "num_channels is a required parameter. It is used to define the number of input channels for your network." +\
-            "It should usually be 3 for an RGB image. Please add it in the model in training.yaml and try again."
+            "num_channels is a required parameter. It is used to define the number of input channels for your network."
+            + "It should usually be 3 for an RGB image. Please add it in the model in training.yaml and try again."
         )
 
     print("\n Step 2 - D : Checking the Number of classes")
+
     # Checking for the number of classes
     if "num_classes" in params["models"]:
         params["models"]["num_classes"] = params["models"]["num_classes"]
     else:
         sys.exit(
-            "num_classes is a required parameter. It is given as number of output classes for your network." +\
-            "Please add it in the model in training.yaml and try again."
+            "num_classes is a required parameter. It is given as number of output classes for your network."
+            + "Please add it in the model in training.yaml and try again."
         )
 
     if "patch_size" in params["slide"]:
