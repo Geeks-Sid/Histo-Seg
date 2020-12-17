@@ -131,9 +131,7 @@ def parseConfig(config_file_path):
 
     # Checking for the number of classes
     if "decoder_base_filters" in params["models"]:
-        params["models"]["decoder_base_filters"] = params["models"][
-            "decoder_base_filters"
-        ]
+        params["models"]["decoder_base_filters"] = params["models"]["decoder_base_filters"]
     else:
         params["models"]["decoder_base_filters"] = 16
         print(
@@ -151,7 +149,18 @@ def parseConfig(config_file_path):
             "activation parameter was not provided, so defaulting to sigmoid activation in final layer!"
         )
 
-    print("\n Step 2 - F : Checking if use of imagenet weights is asked in encoder")
+    print("\n Step 2 - G : Checking if use of imagenet weights is asked in encoder")
+
+    # Checking for the number of classes
+    if "use_imagenet" in params["models"]:
+        params["models"]["use_imagenet"] = params["models"]["use_imagenet"]
+    else:
+        params["models"]["use_imagenet"] = True
+        print(
+            "use_imagenet parameter was not provided, so defaulting to setting it to True."
+        )
+
+    print("\n Step 2 - H : Checking the number of depth layers in the network")
 
     # Checking for the number of classes
     if "use_imagenet" in params["models"]:
