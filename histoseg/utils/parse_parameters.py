@@ -151,6 +151,17 @@ def parseConfig(config_file_path):
             "activation parameter was not provided, so defaulting to sigmoid activation in final layer!"
         )
 
+    print("\n Step 2 - F : Checking if use of imagenet weights is asked in encoder")
+
+    # Checking for the number of classes
+    if "use_imagenet" in params["models"]:
+        params["models"]["use_imagenet"] = params["models"]["use_imagenet"]
+    else:
+        params["models"]["use_imagenet"] = True
+        print(
+            "use_imagenet parameter was not provided, so defaulting to setting it to True."
+        )
+
     if "patch_size" in params["slide"]:
         params["slide"]["patch_size"] = params["slide"]["patch_size"]
     else:
