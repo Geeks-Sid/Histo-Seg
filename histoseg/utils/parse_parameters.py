@@ -63,43 +63,48 @@ def parseConfig(config_file_path):
 
     print("\n Step 2 : Checking the model parameters")
 
-	print("\n Step 2 - A : Checking the Encoder")
+    print("\n Step 2 - A : Checking the Encoder")
 
-	# Checking for the encoder and if assignment is possible
-	if "encoder" in params["model"]:
-		if check_encoder(params["model"]["encoder"]):
-			params["model"]["encoder"] = params["model"]["encoder"]
-			print("Encoder : ", params["model"]["encoder"])
-		else:
-			print("Encoder : ", params["model"]["encoder"])
-			sys.exit(
-            "There seems to be a spelling mistake in your encoder or we aren't currently supporting it. Please try with a different one."
+    # Checking for the encoder and if assignment is possible
+    if "encoder" in params["model"]:
+        if check_encoder(params["model"]["encoder"]):
+            params["model"]["encoder"] = params["model"]["encoder"]
+            print("Encoder : ", params["model"]["encoder"])
+        else:
+            print("Encoder : ", params["model"]["encoder"])
+            sys.exit(
+                "There seems to be a spelling mistake in your encoder or we aren't currently supporting it. Please try with a different one."
+            )
+    else:
+        params["model"]["encoder"] = "resnet18"
+        print(
+            "Since no 'encoder' was selected, defaulting to :",
+            params["model"]["encoder"],
         )
-	else:
-		params["model"]["encoder"] = "resnet18"
-		print("Since no 'encoder' was selected, defaulting to :", params["model"]["encoder"])
 
-	print("\n Step 2 - A : Checking the Decoder")
+    print("\n Step 2 - A : Checking the Decoder")
 
-	# Checking for the decoder and if assignment is possible
-	if "decoder" in params["model"]:
-		if check_decoder(params["model"]["decoder"]):
-			params["model"]["decoder"] = params["model"]["decoder"]
-			print("Decoder : ", params["model"]["decoder"])
-		else:
-			print("Decoder : ", params["model"]["decoder"])
-			sys.exit(
-            "There seems to be a spelling mistake in your decoder or we aren't currently supporting it. Please try with a different one."
+    # Checking for the decoder and if assignment is possible
+    if "decoder" in params["model"]:
+        if check_decoder(params["model"]["decoder"]):
+            params["model"]["decoder"] = params["model"]["decoder"]
+            print("Decoder : ", params["model"]["decoder"])
+        else:
+            print("Decoder : ", params["model"]["decoder"])
+            sys.exit(
+                "There seems to be a spelling mistake in your decoder or we aren't currently supporting it. Please try with a different one."
+            )
+    else:
+        params["model"]["decoder"] = "unet"
+        print(
+            "Since no 'decoder' was selected, defaulting to :",
+            params["model"]["decoder"],
         )
-	else:
-		params["model"]["decoder"] = "unet"
-		print("Since no 'decoder' was selected, defaulting to :", params["model"]["decoder"])
 
-	print()
+    print()
     if "patch_size" in params["slide"]:
         params["slide"]["patch_size"] = params["slide"]["patch_size"]
     else:
         sys.exit(
             "The 'patch_size' parameter was not found in the config file. Defaulting the patch size to 512x512."
         )
-
