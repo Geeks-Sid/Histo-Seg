@@ -82,7 +82,7 @@ def parseConfig(config_file_path):
             params["model"]["encoder"],
         )
 
-    print("\n Step 2 - A : Checking the Decoder")
+    print("\n Step 2 - B : Checking the Decoder")
 
     # Checking for the decoder and if assignment is possible
     if "decoder" in params["model"]:
@@ -101,7 +101,18 @@ def parseConfig(config_file_path):
             params["model"]["decoder"],
         )
 
-    print()
+    print("\n Step 3 - C : Checking the Number of channels")
+
+    # Checking for the number of channels
+    if "num_channels" in params["models"]:
+        params["models"]["num_channels"] = params["models"]["num_channels"]
+        if num_channels != 3:
+            print("Since Number of channels are not set to 3, the imagenet weights in the first layer will be randomized.")
+    else:
+        sys.exit(
+                 "Number of channels is a required parameter. Please add it in the model in training.yaml and try again."
+            )
+
     if "patch_size" in params["slide"]:
         params["slide"]["patch_size"] = params["slide"]["patch_size"]
     else:
