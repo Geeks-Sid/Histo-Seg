@@ -127,6 +127,19 @@ def parseConfig(config_file_path):
             + "Please add it in the model in training.yaml and try again."
         )
 
+    print("\n Step 2 - E : Checking the Decoder Base Filters")
+
+    # Checking for the number of classes
+    if "decoder_base_filters" in params["models"]:
+        params["models"]["decoder_base_filters"] = params["models"][
+            "decoder_base_filters"
+        ]
+    else:
+        params["models"]["decoder_base_filters"] = 16
+        print(
+            "decoder_base_filters were not provided, so defaulting to 16 base filters!"
+        )
+
     if "patch_size" in params["slide"]:
         params["slide"]["patch_size"] = params["slide"]["patch_size"]
     else:
