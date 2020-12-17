@@ -140,6 +140,17 @@ def parseConfig(config_file_path):
             "decoder_base_filters were not provided, so defaulting to 16 base filters!"
         )
 
+    print("\n Step 2 - F : Checking the Final Activation function")
+
+    # Checking for the number of classes
+    if "activation" in params["models"]:
+        params["models"]["activation"] = params["models"]["activation"]
+    else:
+        params["models"]["activation"] = sigmoid
+        print(
+            "activation parameter was not provided, so defaulting to sigmoid activation in final layer!"
+        )
+
     if "patch_size" in params["slide"]:
         params["slide"]["patch_size"] = params["slide"]["patch_size"]
     else:
