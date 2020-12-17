@@ -107,11 +107,13 @@ def parseConfig(config_file_path):
     if "num_channels" in params["models"]:
         params["models"]["num_channels"] = params["models"]["num_channels"]
         if num_channels != 3:
-            print("Since Number of channels are not set to 3, the imagenet weights in the first layer will be randomized.")
+            print(
+                "Since Number of channels are not set to 3, the imagenet weights in the first layer will be randomized."
+            )
     else:
         sys.exit(
-                 "Number of channels is a required parameter. Please add it in the model in training.yaml and try again."
-            )
+            "Number of channels is a required parameter. Please add it in the model in training.yaml and try again."
+        )
 
     if "patch_size" in params["slide"]:
         params["slide"]["patch_size"] = params["slide"]["patch_size"]
