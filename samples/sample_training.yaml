@@ -1,0 +1,66 @@
+# affix version
+version:
+  {
+    minimum: 0.0.1,
+    maximum: 0.0.1 # this should NOT be made a variable, but should be tested after every tag is created
+  }
+# Choose the model parameters here
+model:
+  {
+    encoder: resunet18, # options: read the docs, resnet18 and resnet 50 are good enough
+    decoder: unet, # options : unet, pan, linknet, fpn, pspnet
+    # the dimension of the model and dataset: defines dimensionality of computations
+    num_channels: 3,
+    # Set the number of output classes
+    num_classes: 1,
+    # base_filters
+    decoder_base_filters: 16,
+    # other model-related properties can go here
+    activation: sigmoid, # can be either sigmoid, softmax or none (none == regression)
+    # Set base filters: number of filters present in the initial module of the U-Net convolution; for IncU-Net, keep this divisible by 4
+    use_imagenet: True,
+    # Set the number of layers
+    layers: 5,
+    # Do we freeze encoder?
+    encoder_freeze: False,
+    # How long do we feed the encoder for?
+    encoder_freeze_epochs: 5
+  }
+# Slide details
+slide:
+  {
+    # Set the modality, could be H&E, IHC, Deconvolved stain
+    modality: H&E,
+    # Set the resolution level you want to work at,
+    level: 2,
+    # Set the patch size
+    patch_size: 512
+  }
+# optimization details
+optimize:
+  {
+    # Set the batch size
+    batch_size: 8, 
+    # Set the maximum number of epochs
+    max_epochs: 100,
+    # Set the minimum number of epochs
+    min_epochs: 10,
+    # Set the loss function : dice, focal, tversky
+    loss_function: dice,
+    # Set the optimizer : sgd, adam, rmsprop
+    optimizer: adam,
+    # Set the learning rate : should be less than 1
+    learning_rate: 0.01,
+    # Set the optimization precision : should be 16 or 32
+    precision: 16,
+    # Set the scheduler learning rate decay patience : Should be an integer
+    lr_decay_patience: 5
+  }
+# Set the call back parameters:
+callbacks:
+  {
+    # How many number of epochs do you want to wait before you stop training?
+    patience: 10,
+    # How many top k models do you want to save?
+    save_top_k: 1
+  }

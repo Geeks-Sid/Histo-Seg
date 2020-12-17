@@ -27,8 +27,7 @@ from albumentations import (
 
 
 class SegDataset(Dataset):
-    """
-    """
+    """"""
 
     def __init__(self, csv_file, valid=False):
         self.data_frame = pd.read_csv(csv_file, header=0)
@@ -77,8 +76,7 @@ class SegDataset(Dataset):
 
 
 class SegDataModule(ptl.LightningDataModule):
-    """
-    """
+    """"""
 
     def __init__(self, hparams):
         super().__init__()
