@@ -9,7 +9,7 @@ import sys
 import segmentation_models_pytorch as smp
 
 
-def _check_encoder(modelname):
+def check_encoder(encoder_name):
     model_list = [
         "resnet18",
         "resnet34",
@@ -66,15 +66,13 @@ def _check_encoder(modelname):
         "mobilenet_v2",
         "xception",
     ]
-    print("Checking encoders!", modelname)
-    if modelname in model_list:
+    if encoder_name in model_list:
         return True
     else:
-        print("Fail")
         return False
 
 
-def _check_decoder(modelname):
+def check_decoder(modelname):
     model_list = ["unet", "linknet", "fpn", "pspnet", "pan"]
     if modelname.lower() in model_list:
         return True
@@ -95,71 +93,70 @@ def FetchModel(
     activation="softmax",
     encoder_freeze=False,
 ):
-    if _check_encoder(encoder) and _check_decoder(decoder):
-        if decoder.lower() == "unet":
-            model = smp.Unet(
-                encoder,
-                encoder_depth=encoder_depth,
-                encoder_weights=encoder_weights,
-                decoder_use_batchnorm=decoder_use_batchnorm,
-                decoder_channels=decoder_channels,
-                decoder_attention_type=decoder_attention_type,
-                in_channels=in_channels,
-                classes=classes,
-                activation=activation,
-            )
-        elif decoder.lower() == "linknet":
-            model = smp.Linknet(
-                encoder,
-                encoder_depth=encoder_depth,
-                encoder_weights=encoder_weights,
-                decoder_use_batchnorm=decoder_use_batchnorm,
-                in_channels=in_channels,
-                classes=classes,
-                activation=activation,
-            )
-        elif decoder.lower() == "fpn":
-            model = smp.FPN(
-                encoder,
-                encoder_depth=encoder_depth,
-                encoder_weights=encoder_weights,
-                decoder_pyramid_channels=decoder_channels[0],
-                decoder_segmentation_channels=decoder_channels[1],
-                decoder_merge_policy="add",
-                decoder_dropout=0.2,
-                in_channels=in_channels,
-                classes=classes,
-                activation=activation,
-            )
-        elif decoder.lower() == "pspnet":
-            model = smp.PSPNet(
-                encoder,
-                encoder_depth=encoder_depth,
-                encoder_weights=encoder_weights,
-                psp_out_channels=decoder_channels[0] * 2,
-                psp_use_batchnorm=True,
-                psp_dropout=0.2,
-                in_channels=in_channels,
-                classes=classes,
-                upsampling=2 ** encoder_depth,
-                activation=activation,
-            )
-        elif decoder.lower() == "pan":
-            model = smp.PAN(
-                encoder,
-                encoder_weights=encoder_weights,
-                encoder_dilation=True,
-                decoder_channels=decoder_channels[-1],
-                in_channels=in_channels,
-                classes=classes,
-                activation=activation,
-            )
-        else:
-            print("Model Does not exist! Check Log.")
-            sys.exit(0)
-        if encoder_freeze:
-            for param in model.encoder.parameters():
-                param.requires_grad = False
-            return model
-        else:
-            return model
+    if decoder.lower() == "unet":
+        model = smp.Unet(
+            encoder,
+            encoder_depth=encoder_depth,
+            encoder_weights=encoder_weights,
+            decoder_use_batchnorm=decoder_use_batchnorm,
+            decoder_channels=decoder_channels,
+            decoder_attention_type=decoder_attention_type,
+            in_channels=in_channels,
+            classes=classes,
+            activation=activation,
+        )
+    elif decoder.lower() == "linknet":
+        model = smp.Linknet(
+            encoder,
+            encoder_depth=encoder_depth,
+            encoder_weights=encoder_weights,
+            decoder_use_batchnorm=decoder_use_batchnorm,
+            in_channels=in_channels,
+            classes=classes,
+            activation=activation,
+        )
+    elif decoder.lower() == "fpn":
+        model = smp.FPN(
+            encoder,
+            encoder_depth=encoder_depth,
+            encoder_weights=encoder_weights,
+            decoder_pyramid_channels=decoder_channels[0],
+            decoder_segmentation_channels=decoder_channels[1],
+            decoder_merge_policy="add",
+            decoder_dropout=0.2,
+            in_channels=in_channels,
+            classes=classes,
+            activation=activation,
+        )
+    elif decoder.lower() == "pspnet":
+        model = smp.PSPNet(
+            encoder,
+            encoder_depth=encoder_depth,
+            encoder_weights=encoder_weights,
+            psp_out_channels=decoder_channels[0] * 2,
+            psp_use_batchnorm=True,
+            psp_dropout=0.2,
+            in_channels=in_channels,
+            classes=classes,
+            upsampling=2 ** encoder_depth,
+            activation=activation,
+        )
+    elif decoder.lower() == "pan":
+        model = smp.PAN(
+            encoder,
+            encoder_weights=encoder_weights,
+            encoder_dilation=True,
+            decoder_channels=decoder_channels[-1],
+            in_channels=in_channels,
+            classes=classes,
+            activation=activation,
+        )
+    else:
+        print("Model Does not exist! Check Log.")
+        sys.exit(0)
+    if encoder_freeze:
+        for param in model.encoder.parameters():
+            param.requires_grad = False
+        return model
+    else:
+        return model
