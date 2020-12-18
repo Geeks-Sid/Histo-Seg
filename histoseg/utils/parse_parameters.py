@@ -180,9 +180,7 @@ def parseConfig(config_file_path):
         params["models"]["encoder_freeze"] = params["models"]["encoder_freeze"]
     else:
         params["models"]["encoder_freeze"] = False
-        print(
-            "encoder_freeze was not provided, so defaulting to setting it to False."
-        )
+        print("encoder_freeze was not provided, so defaulting to setting it to False.")
 
     if "patch_size" in params["slide"]:
         params["slide"]["patch_size"] = params["slide"]["patch_size"]
