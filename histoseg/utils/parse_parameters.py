@@ -210,8 +210,16 @@ def parseConfig(config_file_path):
         params["stain"]["slide"] = params["stain"]["slide"]
     else:
         params["stain"]["slide"] = "H&E"
+        print("Since modality of the stain was not mentioned, defaulting to H&E.")
+
+    print("\n Step 3 - B : Checking whether the level was mentioned or not.")
+
+    if "level" in params["slide"]:
+        params["level"]["slide"] = params["level"]["slide"]
+    else:
+        params["level"]["slide"] = 2
         print(
-            "\n Step 3 - A : Since modality of the stain was not mentioned, defaulting to H&E."
+            "Since level of the stain was not mentioned, defaulting to level-2 or 10x."
         )
 
     if "patch_size" in params["slide"]:
