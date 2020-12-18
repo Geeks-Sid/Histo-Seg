@@ -243,7 +243,7 @@ def parseConfig(config_file_path):
             "Please set a batch_size parameter in optimize. It is a required parameter."
         )
 
-    print("\n Step 4 - A : Checking the max number of epochs")
+    print("\n Step 4 - B : Checking the max number of epochs")
 
     if "max_epochs" in params["optimize"]:
         params["max_epochs"]["optimize"] = params["max_epochs"]["optimize"]
@@ -253,7 +253,7 @@ def parseConfig(config_file_path):
             "The 'max_epochs' parameter was not found in the config file. Defaulting the max_epochs to 100"
         )
 
-    print("\n Step 4 - B : Checking the min number of epochs")
+    print("\n Step 4 - C : Checking the min number of epochs")
 
     if "min_epochs" in params["optimize"]:
         params["min_epochs"]["optimize"] = params["min_epochs"]["optimize"]
@@ -261,4 +261,14 @@ def parseConfig(config_file_path):
         params["min_epochs"]["optimize"] = 10
         print(
             "The 'min_epochs' parameter was not found in the config file. Defaulting the min_epochs to 100"
+        )
+
+    print("\n Step 4 - D : Checking the loss function")
+
+    if "loss_function" in params["optimize"]:
+        params["loss_function"]["optimize"] = params["loss_function"]["optimize"]
+    else:
+        params["loss_function"]["optimize"] = "dice"
+        print(
+            "The 'loss_function' parameter was not found in the config file. Defaulting the loss_function to dice."
         )
