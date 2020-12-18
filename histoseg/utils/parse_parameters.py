@@ -219,12 +219,15 @@ def parseConfig(config_file_path):
     else:
         params["level"]["slide"] = 2
         print(
-            "Since level of the stain was not mentioned, defaulting to level-2 or 10x."
+            "Since level of the stain was not mentioned, defaulting to level-2 or 10x for a slide with 40x magnification."
         )
+
+    print("\n Step 3 - C : Checking whether level patch_size was given or not")
 
     if "patch_size" in params["slide"]:
         params["slide"]["patch_size"] = params["slide"]["patch_size"]
     else:
-        sys.exit(
+        params["slide"]["patch_size"] = 512
+        print(
             "The 'patch_size' parameter was not found in the config file. Defaulting the patch size to 512x512."
         )
