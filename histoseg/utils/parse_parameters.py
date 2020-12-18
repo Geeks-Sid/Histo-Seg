@@ -231,3 +231,14 @@ def parseConfig(config_file_path):
         print(
             "The 'patch_size' parameter was not found in the config file. Defaulting the patch size to 512x512."
         )
+
+    print("\n Step 4 : Checking the optimize parameters")
+
+    print("\n Step 4 - A : Checking the batch size")
+
+    if "batch_size" in params["optimize"]:
+        params["batch_size"]["optimize"] = params["batch_size"]["optimize"]
+    else:
+        sys.exit(
+            "Please set a batch_size parameter in optimize. It is a required parameter."
+        )
