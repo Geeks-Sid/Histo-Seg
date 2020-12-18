@@ -282,3 +282,13 @@ def parseConfig(config_file_path):
         print(
             "The 'optimizer' parameter was not found in the config file. Defaulting the optimizer to 'adam'."
         )
+
+    print("\n Step 4 - F : Checking the Learning Rate")
+
+    if "learning_rate" in params["optimize"]:
+        params["learning_rate"]["optimize"] = params["learning_rate"]["optimize"]
+    else:
+        params["learning_rate"]["optimize"] = 0.01
+        print(
+            "The 'learning_rate' parameter was not found in the config file. Defaulting the learning_rate to 1e-2."
+        )
