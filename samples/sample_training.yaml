@@ -7,8 +7,10 @@ version:
 # Choose the model parameters here
 model:
   {
-    encoder: resnet18, # options: read the docs, resnet18 and resnet 50 are good enough
-    decoder: unet, # options : unet, pan, linknet, fpn, pspnet
+    # options: read the docs, resnet18 and resnet 50 are good enough
+    encoder: resnet18,
+    # options : unet, pan, linknet, fpn, pspnet
+    decoder: unet,
     # the dimension of the model and dataset: defines dimensionality of computations
     num_channels: 3,
     # Set the number of output classes

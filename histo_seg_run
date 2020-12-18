@@ -1,0 +1,138 @@
+#!usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+Created on Sat May 30 01:05:59 2020
+
+@author: siddhesh
+"""
+
+from __future__ import absolute_import, print_function, division
+import argparse
+import os
+import sys
+import pandas as pd
+from histoseg.trainer import trainer_main
+from histoseg.tester import data_infer
+from histoseg.utils.parse_parameters import parseConfig
+import pkg_resources
+from argparse import Namespace
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        prog="Histo-Seg",
+        formatter_class=argparse.RawTextHelpFormatter,
+        description="\nCode for Histopathology segmentation",
+    )
+
+    parser.add_argument(
+        "-config",
+        dest="config",
+        type="str"
+        help="Pass a config file like one mentioned in the samples.",
+        required=True
+    )
+
+    parser.add_argument(
+        "-train",
+        dest="train",
+        type=str,
+        help="Should pass a CSV file to be used for training.",
+    )
+
+    parser.add_argument(
+        "-valid",
+        dest="valid",
+        type=str,
+        help="Should pass a CSV file to be used for validation.",
+    )
+
+    parser.add_argument(
+        "-test",
+        dest="test",
+        type=str,
+        help="Should pass a CSV file to be used for testing.",
+    )
+
+    parser.add_argument(
+        "-dev",
+        default="0",
+        dest="device",
+        type=str,
+        help="used to set on which device the prediction will run.\n"
+        + "Must be either int or str. Use int for GPU id or\n"
+        + "'cpu' to run on CPU. Avoid training on CPU. \n"
+        + "Default for selecting first GPU is set to -dev 0\n",
+        required=False,
+    )
+
+    parser.add_argument(
+        "-load",
+        default=None,
+        dest="load",
+        type=str,
+        help="If the location of the weight file is passed, the internal methods\n"
+        + "are overridden to apply these weights to the model. We warn against\n"
+        + "the usage of this unless you know what you are passing. C",
+    )
+
+    args = parser.parse_args()
+
+    # set the config file to either train or test depending on which one was given
+    if args.config is not None:
+        params_file = os.path.abspath(args.config)
+
+    DEVICE = args.device
+
+    if args.load is not None:
+        weights = os.path.abspath(args.load)
+    else:
+        weights = None
+
+    if weights is not None:
+        _, ext = os.path.splitext(weights)
+        if os.path.exists(weights):
+            if args.train is not None:
+                if ext != ".ckpt":
+                    raise ValueError(
+                        "The extension was not a .ckpt file for training to enable proper\n"
+                        + "resume during training. Please pass a .ckpt file."
+                    )
+            elif args.test is not None:
+                if ext != ".pt":
+                    raise ValueError(
+                        "Expected a .pt file, got a file with %s extension. If it is a\n"
+                        + ".ckpt file, please conver it with our converion script\n"
+                        + "mentioned in the Readme.md"
+                    )
+            else:
+                raise ValueError(
+                    "Some issue with the weights file. Try not passing it."
+                )
+
+    print("Weight file used :", weights)
+
+    if DEVICE == "cpu":
+        pass
+    else:
+        DEVICE = int(DEVICE)
+
+    # Reading all the parameters and parsing them
+    cfg = args.config
+    if os.path.isfile(cfg):
+        hparams = parseConfig(os.path.abspath(cfg))
+
+    print(type(DEVICE), DEVICE)
+    if type(DEVICE) != str:
+        params["device"] = str(DEVICE)
+    params["weights"] = weights
+
+    if args.train is not None:
+        trainer_main.train_network(hparams)
+    elif args.test is not None:
+        data_infer.test_network(hparams)
+    else:
+        raise ValueError(
+            "Expected the modes to be set with either -train True or -test True.\n"
+            + "Please try again!"
+        )

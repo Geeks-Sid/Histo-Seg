@@ -343,4 +343,4 @@ def parseConfig(config_file_path):
 
     print("***** DONE PARSING THE CONFIG FILE *****")
 
-    return
+    return params
