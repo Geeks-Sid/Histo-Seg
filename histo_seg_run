@@ -55,6 +55,13 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
+        "-output",
+        dest="output",
+        type=str,
+        help="Pass a output directory location to save model outputs",
+    )
+
+    parser.add_argument(
         "-dev",
         default="0",
         dest="device",
@@ -126,6 +133,7 @@ if __name__ == "__main__":
     if type(DEVICE) != str:
         hparams["device"] = str(DEVICE)
     hparams["weights"] = weights
+    hparams["model_dir"] = os.path.abspath(output)
 
     if args.train is not None and args.valid is not None:
         hparams["train_csv"] = os.path.abspath(args.train)
