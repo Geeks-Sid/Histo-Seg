@@ -173,6 +173,17 @@ def parseConfig(config_file_path):
             "layers parameter was not provided, so defaulting to setting it to 5 layers."
         )
 
+    print("\n Step 2 - I : Checking whether the encoder was to be frozen")
+
+    # Checking for the number of classes
+    if "encoder_freeze" in params["models"]:
+        params["models"]["encoder_freeze"] = params["models"]["encoder_freeze"]
+    else:
+        params["models"]["encoder_freeze"] = False
+        print(
+            "encoder_freeze was not provided, so defaulting to setting it to False."
+        )
+
     if "patch_size" in params["slide"]:
         params["slide"]["patch_size"] = params["slide"]["patch_size"]
     else:
