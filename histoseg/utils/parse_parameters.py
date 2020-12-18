@@ -242,3 +242,23 @@ def parseConfig(config_file_path):
         sys.exit(
             "Please set a batch_size parameter in optimize. It is a required parameter."
         )
+
+    print("\n Step 4 - A : Checking the max number of epochs")
+
+    if "max_epochs" in params["optimize"]:
+        params["max_epochs"]["optimize"] = params["max_epochs"]["optimize"]
+    else:
+        params["max_epochs"]["optimize"] = 100
+        print(
+            "The 'max_epochs' parameter was not found in the config file. Defaulting the max_epochs to 100"
+        )
+
+    print("\n Step 4 - B : Checking the min number of epochs")
+
+    if "min_epochs" in params["optimize"]:
+        params["min_epochs"]["optimize"] = params["min_epochs"]["optimize"]
+    else:
+        params["min_epochs"]["optimize"] = 10
+        print(
+            "The 'min_epochs' parameter was not found in the config file. Defaulting the min_epochs to 100"
+        )
