@@ -131,7 +131,9 @@ def parseConfig(config_file_path):
 
     # Checking for the number of classes
     if "decoder_base_filters" in params["models"]:
-        params["models"]["decoder_base_filters"] = params["models"]["decoder_base_filters"]
+        params["models"]["decoder_base_filters"] = params["models"][
+            "decoder_base_filters"
+        ]
     else:
         params["models"]["decoder_base_filters"] = 16
         print(
@@ -163,12 +165,12 @@ def parseConfig(config_file_path):
     print("\n Step 2 - H : Checking the number of depth layers in the network")
 
     # Checking for the number of classes
-    if "use_imagenet" in params["models"]:
-        params["models"]["use_imagenet"] = params["models"]["use_imagenet"]
+    if "layers" in params["models"]:
+        params["models"]["layers"] = params["models"]["layers"]
     else:
-        params["models"]["use_imagenet"] = True
+        params["models"]["layers"] = 5
         print(
-            "use_imagenet parameter was not provided, so defaulting to setting it to True."
+            "layers parameter was not provided, so defaulting to setting it to 5 layers."
         )
 
     if "patch_size" in params["slide"]:
