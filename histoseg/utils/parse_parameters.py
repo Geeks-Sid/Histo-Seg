@@ -44,6 +44,7 @@ def parseConfig(config_file_path):
     print("***** PARSING THE CONFIG FILE *****")
 
     print("\n Step 1 : Checking for the Version")
+
     with open(config_file_path) as f:
         params = yaml.load(f, Loader=yaml.FullLoader)
     if not ("version" in params):
@@ -181,6 +182,25 @@ def parseConfig(config_file_path):
     else:
         params["models"]["encoder_freeze"] = False
         print("encoder_freeze was not provided, so defaulting to setting it to False.")
+
+    print(
+        "\n Step 2 - J : Checking how many number of epochs was encoder supposed to be frozen"
+    )
+
+    # Checking for the number of classes
+    if params["models"]["encoder_freeze"]:
+        if "encoder_freeze_epochs" in params["models"]:
+            params["models"]["encoder_freeze_epochs"] = params["models"][
+                "encoder_freeze_epochs"
+            ]
+        else:
+            print(
+                "encoder_freeze was set to True, but encoder_freeze_epochs was not set. Defaulting to 5 encoder_freeze_epochs."
+            )
+    else:
+        print(
+            "Since encoder_freeze was not set to True, encoder_freeze_epochs cannot be used. Please set it to True"
+        )
 
     if "patch_size" in params["slide"]:
         params["slide"]["patch_size"] = params["slide"]["patch_size"]
