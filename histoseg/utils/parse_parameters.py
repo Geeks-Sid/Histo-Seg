@@ -272,3 +272,13 @@ def parseConfig(config_file_path):
         print(
             "The 'loss_function' parameter was not found in the config file. Defaulting the loss_function to dice."
         )
+
+    print("\n Step 4 - E : Checking the optimizer")
+
+    if "optimizer" in params["optimize"]:
+        params["optimizer"]["optimize"] = params["optimizer"]["optimize"]
+    else:
+        params["optimizer"]["optimize"] = "dice"
+        print(
+            "The 'optimizer' parameter was not found in the config file. Defaulting the optimizer to 'adam'."
+        )
