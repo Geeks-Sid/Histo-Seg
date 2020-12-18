@@ -314,3 +314,17 @@ def parseConfig(config_file_path):
         print(
             "The 'lr_decay_patience' parameter was not found in the config file. Defaulting the lr_decay_patience to 5."
         )
+
+    print("\n Step 5 : Checking the callback parameters")
+
+    print(
+        "\n Step 5 - A : Checking the number of epochs before validation loss before training is stopped."
+    )
+
+    if "patience" in params["callbacks"]:
+        params["patience"]["callbacks"] = params["patience"]["callbacks"]
+    else:
+        params["patience"]["callbacks"] = 10
+        print(
+            "The 'patience' parameter was not found in the config file. Defaulting the patience to 10 epochs."
+        )
