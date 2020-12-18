@@ -147,7 +147,7 @@ def parseConfig(config_file_path):
     if "activation" in params["models"]:
         params["models"]["activation"] = params["models"]["activation"]
     else:
-        params["models"]["activation"] = sigmoid
+        params["models"]["activation"] = "sigmoid"
         print(
             "activation parameter was not provided, so defaulting to sigmoid activation in final layer!"
         )
@@ -200,6 +200,18 @@ def parseConfig(config_file_path):
     else:
         print(
             "Since encoder_freeze was not set to True, encoder_freeze_epochs cannot be used. Please set it to True"
+        )
+
+    print("\n Step 3 : Checking the Slide parameters")
+
+    print("\n Step 3 - A : Checking whether the stain was mentioned or not")
+
+    if "stain" in params["slide"]:
+        params["stain"]["slide"] = params["stain"]["slide"]
+    else:
+        params["stain"]["slide"] = "H&E"
+        print(
+            "\n Step 3 - A : Since modality of the stain was not mentioned, defaulting to H&E."
         )
 
     if "patch_size" in params["slide"]:

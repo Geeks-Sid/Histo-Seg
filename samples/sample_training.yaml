@@ -29,8 +29,8 @@ model:
 # Slide details
 slide:
   {
-    # Set the modality, could be H&E, IHC, Deconvolved stain
-    modality: H&E,
+    # Set the stain, could be H&E, IHC, Deconvolved stain
+    stain: H&E,
     # Set the resolution level you want to work at,
     level: 2,
     # Set the patch size
