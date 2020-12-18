@@ -292,3 +292,13 @@ def parseConfig(config_file_path):
         print(
             "The 'learning_rate' parameter was not found in the config file. Defaulting the learning_rate to 1e-2."
         )
+
+    print("\n Step 4 - F : Checking the Precision - either 16 or 32 bit")
+
+    if "precision" in params["optimize"]:
+        params["precision"]["optimize"] = params["precision"]["optimize"]
+    else:
+        params["precision"]["optimize"] = 16
+        print(
+            "The 'precision' parameter was not found in the config file. Defaulting the precision to 16"
+        )
