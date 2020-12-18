@@ -328,3 +328,15 @@ def parseConfig(config_file_path):
         print(
             "The 'patience' parameter was not found in the config file. Defaulting the patience to 10 epochs."
         )
+
+    print(
+        "\n Step 5 - B : Checking whether Saving the save_top_k for number of models to be saved was set."
+    )
+
+    if "patience" in params["save_top_k"]:
+        params["patience"]["save_top_k"] = params["patience"]["save_top_k"]
+    else:
+        params["patience"]["save_top_k"] = 1
+        print(
+            "The 'save_top_k' parameter was not found in the config file. Saving only 1 model by default."
+        )
