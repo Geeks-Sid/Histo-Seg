@@ -300,5 +300,17 @@ def parseConfig(config_file_path):
     else:
         params["precision"]["optimize"] = 16
         print(
-            "The 'precision' parameter was not found in the config file. Defaulting the precision to 16"
+            "The 'precision' parameter was not found in the config file. Defaulting the precision to 16."
+        )
+
+    print("\n Step 4 - H : Checking the Learning Rate Decay Patience")
+
+    if "lr_decay_patience" in params["optimize"]:
+        params["lr_decay_patience"]["optimize"] = params["lr_decay_patience"][
+            "optimize"
+        ]
+    else:
+        params["lr_decay_patience"]["optimize"] = 5
+        print(
+            "The 'lr_decay_patience' parameter was not found in the config file. Defaulting the lr_decay_patience to 5."
         )
