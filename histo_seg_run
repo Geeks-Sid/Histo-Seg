@@ -28,9 +28,9 @@ if __name__ == "__main__":
     parser.add_argument(
         "-config",
         dest="config",
-        type="str"
+        type="str",
         help="Pass a config file like one mentioned in the samples.",
-        required=True
+        required=True,
     )
 
     parser.add_argument(
@@ -124,8 +124,20 @@ if __name__ == "__main__":
 
     print(type(DEVICE), DEVICE)
     if type(DEVICE) != str:
-        params["device"] = str(DEVICE)
-    params["weights"] = weights
+        hparams["device"] = str(DEVICE)
+    hparams["weights"] = weights
+
+    if args.train is not None and args.valid is not None:
+        hparams["train_csv"] = os.path.abspath(args.train)
+        hparams["valid_csv"] = os.path.abspath(args.valid)
+    elif args.train is not None and args.valid is None:
+        sys.exit("\nPlease add validation_csv to continue.")
+    elif args.train is None and args.valid is not None:
+        sys.exit("\nPlease add train_csv to continue.")
+    if args.test is not None:
+        hparams["test_csv"] = os.path.abspath(args.test)
+    else:
+        sys.exit("\nPlease add (train_csv & valid_csv) or test_csv to continue.")
 
     if args.train is not None:
         trainer_main.train_network(hparams)

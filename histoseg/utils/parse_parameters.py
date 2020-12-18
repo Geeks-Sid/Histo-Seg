@@ -37,7 +37,7 @@ def initialize_keys(parameters, key):
     return parameters
 
 
-def parseConfig(config_file_path):
+def parseTrainConfig(config_file_path):
     """
     This function parses the configuration file and returns a dictionary of parameters
     """
