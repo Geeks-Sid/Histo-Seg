@@ -340,3 +340,7 @@ def parseConfig(config_file_path):
         print(
             "The 'save_top_k' parameter was not found in the config file. Saving only 1 model by default."
         )
+
+    print("***** DONE PARSING THE CONFIG FILE *****")
+
+    return
