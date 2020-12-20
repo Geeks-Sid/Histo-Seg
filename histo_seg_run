@@ -123,18 +123,7 @@ if __name__ == "__main__":
         pass
     else:
         DEVICE = int(DEVICE)
-
-    # Reading all the parameters and parsing them
-    cfg = args.config
-    if os.path.isfile(cfg):
-        hparams = parseConfig(os.path.abspath(cfg))
-
-    print(type(DEVICE), DEVICE)
-    if type(DEVICE) != str:
-        hparams["device"] = str(DEVICE)
-    hparams["weights"] = weights
-    hparams["model_dir"] = os.path.abspath(output)
-
+    
     if args.train is not None and args.valid is not None:
         hparams["train_csv"] = os.path.abspath(args.train)
         hparams["valid_csv"] = os.path.abspath(args.valid)
@@ -146,6 +135,20 @@ if __name__ == "__main__":
         hparams["test_csv"] = os.path.abspath(args.test)
     else:
         sys.exit("\nPlease add (train_csv & valid_csv) or test_csv to continue.")
+
+# Reading all the parameters and parsing them
+    cfg = args.config
+    if os.path.isfile(cfg):
+        if args.train is not None and args.valid is not None:
+            hparams = parseConfig(os.path.abspath(cfg))
+        elif args.test is not None:
+            hparams = parseConfig(os.path.abspath(cfg), train=False)
+
+    print(type(DEVICE), DEVICE)
+    if type(DEVICE) != str:
+        hparams["device"] = str(DEVICE)
+    hparams["weights"] = weights
+    hparams["model_dir"] = os.path.abspath(output)
 
     if args.train is not None:
         trainer_main.train_network(hparams)

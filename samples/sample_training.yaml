@@ -33,16 +33,14 @@ slide:
   {
     # Set the stain, could be H&E, IHC, Deconvolved stain
     stain: H&E,
-    # Tissue location
-    tissue_location: colon,
+    # Tissue site : could be brain, liver, whatever organ the tissue was picked up from
+    site: colon,
     # Segmentation type: Could be nuclei, like lymphocytes, neutrophils, or tumor etc
     seg_type: tumor,
     # Set the resolution level you want to work at,
     level: 2,
     # Set the patch size
     patch_size: 512,
-    # Set the stride size
-    stride_size: 256
   }
 # optimization details
 optimize:
