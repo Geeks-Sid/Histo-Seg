@@ -4,35 +4,19 @@ version:
     minimum: 0.0.1,
     maximum: 0.0.1 # this should NOT be made a variable, but should be tested after every tag is created
   }
-# Choose the model parameters here
-model:
-  {
-    # options: read the docs, resnet18 and resnet 50 are good enough
-    encoder: resnet18,
-    # options : unet, pan, linknet, fpn, pspnet
-    decoder: unet,
-    # the dimension of the model and dataset: defines dimensionality of computations
-    num_channels: 3,
-    # Set the number of output classes
-    num_classes: 1,
-    # base_filters
-    decoder_base_filters: 16,
-    # other model-related properties can go here
-    activation: sigmoid, # can be either sigmoid, softmax or none (none == regression)
-    # Set base filters: number of filters present in the initial module of the U-Net convolution; for IncU-Net, keep this divisible by 4
-    use_imagenet: True,
-    # Set the number of layers
-    layers: 5,
-  }
 # Slide details
 slide:
   {
     # Set the stain, could be H&E, IHC, Deconvolved stain
     stain: H&E,
+    # Tissue site : could be brain, liver, whatever organ the tissue was picked up from
+    site: colon,
+    # Segmentation type: Could be nuclei, like lymphocytes, neutrophils, or tumor etc
+    seg_type: tumor,
     # Set the resolution level you want to work at,
     level: 2,
     # Set the patch size
     patch_size: 1024,
-    # Set the stride size
-    stride_size: 512
+        # Set the stride size
+    stride_size: 256
   }
