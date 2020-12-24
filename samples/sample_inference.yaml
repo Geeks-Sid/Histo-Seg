@@ -17,6 +17,8 @@ slide:
     level: 2,
     # Set the patch size
     patch_size: 1024,
-        # Set the stride size
+    # Set the stride size
     stride_size: 256
+    # Set the batch size for inference
+    batch_size: 1
   }

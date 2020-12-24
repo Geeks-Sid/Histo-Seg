@@ -148,7 +148,7 @@ if __name__ == "__main__":
     if type(DEVICE) != str:
         hparams["device"] = str(DEVICE)
     hparams["weights"] = weights
-    hparams["model_dir"] = os.path.abspath(output)
+    hparams["output_dir"] = os.path.abspath(output)
 
     if args.train is not None:
         trainer_main.train_network(hparams)
